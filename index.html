@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مدارک سیستم مدیریت آزمایشگاه | ISO 17025</title>
+  <style>
+    :root {
+      --bg: #f2f5f6;
+      --panel: #fff;
+      --ink: #15252c;
+      --mute: #5f727b;
+      --line: #d6dee2;
+      --acc: #0b6e7f;
+      --acc-soft: #dff0f3;
+      --pdf: #b23a2e;
+      --doc: #2a5db0;
+      --xls: #22794a
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    .views {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--line)
+    }
+
+    .view {
+      border: 0;
+      background: none;
+      font: inherit;
+      font-weight: 700;
+      padding: 10px 22px;
+      cursor: pointer;
+      color: var(--mute);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px
+    }
+
+    .view[aria-selected=true] {
+      color: var(--acc);
+      border-bottom-color: var(--acc)
+    }
+
+    .view:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--acc);
+      outline-offset: 1px
+    }
+
+    .tree {
+      padding: 6px 0
+    }
+
+    .tree details {
+      border-top: 1px solid var(--line)
+    }
+
+    .tree>details:first-child {
+      border-top: 0
+    }
+
+    .tree summary {
+      cursor: pointer;
+      padding: 9px 16px;
+      font-weight: 700
+    }
+
+    .tree details details summary {
+      font-weight: 400
+    }
+
+    .tree summary:hover {
+      background: var(--acc-soft)
+    }
+
+    .tree .cnt {
+      color: var(--mute);
+      font-size: .8rem;
+      font-weight: 400;
+      margin-inline-start: 8px
+    }
+
+    .tree .kids {
+      padding-inline-start: 22px;
+      border-inline-start: 2px solid var(--line);
+      margin-inline-start: 16px
+    }
+
+    .tree a.file {
+      display: block;
+      padding: 6px 16px;
+      color: var(--ink);
+      text-decoration: none;
+      word-break: break-word
+    }
+
+    .tree a.file:hover {
+      background: var(--acc-soft);
+      color: var(--acc)
+    }
+
+    .upd {
+      color: var(--mute);
+      font-size: .82rem
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.7 Tahoma, "Segoe UI", Vazirmatn, sans-serif
+    }
+
+    header {
+      background: var(--ink);
+      color: #fff;
+      padding: 28px 5vw 22px
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700
+    }
+
+    header p {
+      margin: 4px 0 0;
+      color: #a9c2ca;
+      font-size: .9rem
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 5vw 60px
+    }
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px
+    }
+
+    #q {
+      flex: 1 1 260px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      background: var(--panel);
+      color: var(--ink)
+    }
+
+    #std {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      background: var(--panel);
+      color: var(--ink)
+    }
+
+    #q:focus,
+    #std:focus,
+    .tab:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--acc);
+      outline-offset: 1px
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font: inherit;
+      cursor: pointer
+    }
+
+    .tab .n {
+      color: var(--mute);
+      margin-inline-start: 6px;
+      font-size: .85em
+    }
+
+    .tab[aria-selected=true] {
+      background: var(--acc);
+      border-color: var(--acc);
+      color: #fff
+    }
+
+    .tab[aria-selected=true] .n {
+      color: #d3eef2
+    }
+
+    .list {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 105px 1fr 85px 55px 95px 95px 52px;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      color: inherit;
+      text-decoration: none
+    }
+
+    .row:first-child {
+      border-top: 0
+    }
+
+    a.row:hover {
+      background: var(--acc-soft)
+    }
+
+    .head {
+      background: #e8eef0;
+      color: var(--mute);
+      font-size: .82rem;
+      font-weight: 700
+    }
+
+    .code {
+      font-weight: 700;
+      direction: ltr;
+      text-align: right
+    }
+
+    .title small {
+      display: block;
+      color: var(--mute);
+      font-size: .8rem
+    }
+
+    .ext {
+      justify-self: start;
+      font-size: .75rem;
+      font-weight: 700;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 5px;
+      direction: ltr
+    }
+
+    .empty {
+      padding: 36px;
+      text-align: center;
+      color: var(--mute)
+    }
+
+    @media(max-width:700px) {
+      .row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "t e""c d"
+      }
+
+      .row .std,
+      .row .prep {
+        display: none
+      }
+
+      .head {
+        display: none
+      }
+
+      .row .code {
+        grid-area: c
+      }
+
+      .row .title {
+        grid-area: t
+      }
+
+      .row .ext {
+        grid-area: e
+      }
+
+      .row .date {
+        grid-area: d
+      }
+
+      .row .rev {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 id="co">فهرست مدارک</h1>
+    <p>روش‌های اجرایی، دستورالعمل‌ها، فرم‌ها مدارک پشتیبان و سوابق سیستم مدیریت آزمایشگاه</p>
+  </header>
+  <main>
+    <nav class="views"><button class="view" data-v="docs" aria-selected="true">مدارک</button><button class="view"
+        data-v="rec" aria-selected="false">سوابق</button></nav>
+    <section id="docsView">
+      <div class="bar"><input id="q" type="search" placeholder="جستجو در کد یا عنوان مدرک…" aria-label="جستجو">
+        <select id="std" aria-label="استاندارد">
+          <option value="">همه استانداردها</option>
+          <option>ISO 17025</option>
+          <option>ISO 9001</option>
+        </select>
+      </div>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="list" id="list" aria-live="polite"></div>
+    </section>
+    <section id="recView" hidden>
+      <div class="bar"><input id="rq" type="search" placeholder="جستجو در نام پوشه‌ها و فایل‌های سوابق…"
+          aria-label="جستجوی سوابق"></div>
+      <div class="list tree" id="tree"></div>
+      <p class="upd" id="upd"></p>
+    </section>
+  </main>
+  <script src="documents.js"></script>
+  <script src="records.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const COLORS = { pdf: "var(--pdf)", doc: "var(--doc)", docx: "var(--doc)", xls: "var(--xls)", xlsx: "var(--xls)" };
+    let cat = "all";
+    document.getElementById("co").textContent = "فهرست مدارک — " + COMPANY;
+    const fa = s => String(s).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    const norm = s => String(s).toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک");
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    function render() {
+      const q = norm($("q").value.trim());
+      const match = d => (cat === "all" || d.cat === cat) && (!$("std").value || d.std === $("std").value) && (!q || norm([d.code, d.title, d.note].join(" ")).includes(q));
+      const tabs = [{ id: "all", name: "همه" }, ...CATEGORIES];
+      $("tabs").innerHTML = tabs.map(t => {
+        const n = DOCS.filter(d => (t.id === "all" || d.cat === t.id) && (!$("std").value || d.std === $("std").value) && (!q || norm([d.code, d.title, d.note].join(" ")).includes(q))).length;
+        return `<button class="tab" role="tab" data-id="${t.id}" aria-selected="${t.id === cat}">${t.name}<span class="n">${fa(n)}</span></button>`;
+      }).join("");
+      const rows = DOCS.filter(match);
+      $("list").innerHTML = `<div class="row head"><span>کد</span><span>عنوان</span><span>استاندارد</span><span>نسخه</span><span>تاریخ تهیه</span><span>آخرین ویرایش</span></div>` +
+        (rows.length ? rows.map(d => {
+          const ext = (d.file.split(".").pop() || "").toLowerCase();
+          return `<a class="row" href="${esc(encodeURI(d.file))}" target="_blank" rel="noopener">
+        <span class="code">${esc(d.code)}</span>
+        <span class="title">${esc(d.title)}<small>${esc(CATEGORIES.find(c => c.id === d.cat)?.name || "")}</small></span>
+        <span class="std">${esc(d.std)}</span><span class="rev">${fa(d.rev || "-")}</span><span class="prep">${fa(d.prepared || "-")}</span><span class="date">${fa(d.revised || "-")}</span>
+        <span class="ext" style="background:${COLORS[ext] || "var(--mute)"}">${esc(ext.toUpperCase())}</span></a>`;
+        }).join("") : `<div class="empty">موردی پیدا نشد. عبارت جستجو یا دسته را تغییر دهید.</div>`);
+    }
+    $("tabs").addEventListener("click", e => { const b = e.target.closest(".tab"); if (b) { cat = b.dataset.id; render(); } });
+    $("q").addEventListener("input", render);
+    $("std").addEventListener("change", render);
+    render();
+    /* ---- سوابق ---- */
+    const fileCount = n => n.c ? n.c.reduce((a, k) => a + fileCount(k), 0) : 1;
+    function prune(n, q) {
+      if (!q) return n;
+      if (norm(n.n).includes(q)) return n;
+      if (!n.c) return null;
+      const kids = n.c.map(k => prune(k, q)).filter(Boolean);
+      return kids.length ? { n: n.n, c: kids } : null;
+    }
+    function nodeHtml(n, q) {
+      if (!n.c) {
+        const href = n.p.split("/").map(encodeURIComponent).join("/");
+        return `<a class="file" href="${esc(href)}" target="_blank" rel="noopener">${esc(n.n)}</a>`;
+      }
+      return `<details${q ? " open" : ""}><summary>${esc(n.n)}<span class="cnt">${fa(fileCount(n))} فایل</span></summary><div class="kids">${n.c.map(k => nodeHtml(k, q)).join("")}</div></details>`;
+    }
+    function renderRec() {
+      const q = norm($("rq").value.trim()), all = window.RECORDS || [];
+      const rows = all.map(n => prune(n, q)).filter(Boolean);
+      $("tree").innerHTML = rows.length ? rows.map(n => nodeHtml(n, q)).join("")
+        : `<div class="empty">${all.length ? "موردی پیدا نشد. عبارت جستجو را تغییر دهید." : "فهرست سوابق هنوز ساخته نشده است. فایل update-records.bat را یک بار اجرا کنید."}</div>`;
+      $("upd").textContent = window.RECORDS_UPDATED ? "آخرین به‌روزرسانی فهرست سوابق: " + fa(window.RECORDS_UPDATED) : "";
+    }
+    document.querySelectorAll(".view").forEach(b => b.addEventListener("click", () => {
+      const rec = b.dataset.v === "rec";
+      $("docsView").hidden = rec; $("recView").hidden = !rec;
+      document.querySelectorAll(".view").forEach(x => x.setAttribute("aria-selected", x === b));
+    }));
+    $("rq").addEventListener("input", renderRec);
+    renderRec();
+  </script>
+</body>
+
+</html>
